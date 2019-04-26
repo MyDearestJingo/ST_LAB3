@@ -1,5 +1,3 @@
-package JunitTestCase;
-
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Rule;
@@ -14,40 +12,41 @@ public class BigIntegerTest {
 	}
 
 	@Test
-	public void testValueOf() {
+	public void testValueOf() { // æµ‹è¯•BigIntegerå¯¹æŒ‡å®šæ•°å­—çš„ç”Ÿæˆçš„å¯¹è±¡æ˜¯å¦æ­£ç¡®
 		
-		//²âÊÔÓÃÀı1
+		//æµ‹è¯•ç”¨ä¾‹1
 		assertEquals( new BigInteger(new int[0], 0), BigInteger.valueOf(new Long(0L)));
 		
-		//²âÊÔÓÃÀı2
+		//æµ‹è¯•ç”¨ä¾‹2
  		assertEquals(new BigInteger(16L),BigInteger.valueOf(new Long(16L)));
 		
-		//²âÊÔÓÃÀı3
+		//æµ‹è¯•ç”¨ä¾‹3
 		assertEquals(new BigInteger(-15L),BigInteger.valueOf(new Long(-15L)));
 		
-		//²âÊÔÓÃÀı4
+		//æµ‹è¯•ç”¨ä¾‹4
 		assertEquals(new BigInteger(12506L),BigInteger.valueOf(new Long(12506L)));
 		
 	}
 
 	@Test
 	public void testCompareMagnitudeBigInteger() {
-		
-		BigInteger big = new BigInteger(1234);
+		String val = "12345";
 
-		//²âÊÔÓÃÀı1
+		BigInteger big = new BigInteger(val, 10);
+
+		//æµ‹è¯•ç”¨ä¾‹1
 		assertEquals(1,big.compareMagnitude(new BigInteger(123)));
 		
-		//²âÊÔÓÃÀı2
+		//æµ‹è¯•ç”¨ä¾‹2
 		assertEquals(-1,big.compareMagnitude(new BigInteger(12345)));
 	
-		//²âÊÔÓÃÀı3
+		//æµ‹è¯•ç”¨ä¾‹3
 		assertEquals(0,big.compareMagnitude(new BigInteger(1234)));
 		
-		//²âÊÔÓÃÀı4
+		//æµ‹è¯•ç”¨ä¾‹4
 		assertEquals(1,big.compareMagnitude(new BigInteger(1224)));
 		
-		//²âÊÔÓÃÀı5
+		//æµ‹è¯•ç”¨ä¾‹5
 		assertEquals(-1,big.compareMagnitude(new BigInteger(1284)));
 		
 		
@@ -58,23 +57,23 @@ public class BigIntegerTest {
 		
 		BigInteger big = new BigInteger(1234);
 		
-		//²âÊÔÓÃÀı1
+		//æµ‹è¯•ç”¨ä¾‹1ï¼šæ˜¯å¦ä¸è‡ªå·±ç›¸ç­‰
 		assertEquals(true , big.equals(big));
 		
-		//²âÊÔÓÃÀı2
+		//æµ‹è¯•ç”¨ä¾‹2
 		Long l = new Long(1234L);
 		assertEquals(false , big.equals(l));
 		
-		//²âÊÔÓÃÀı3
+		//æµ‹è¯•ç”¨ä¾‹3
 		assertEquals(false , big.equals(new BigInteger(-1234)));
 		
-		//²âÊÔÓÃÀı4
+		//æµ‹è¯•ç”¨ä¾‹4
 		assertEquals(false , big.equals(new BigInteger(12345)));
 		
-		//²âÊÔÓÃÀı5
+		//æµ‹è¯•ç”¨ä¾‹5
 		assertEquals(false , big.equals(new BigInteger(1233)));
 		
-		//²âÊÔÓÃÀı6
+		//æµ‹è¯•ç”¨ä¾‹6
 		assertEquals(true , big.equals(new BigInteger(1234)));
 	}
 
@@ -83,26 +82,26 @@ public class BigIntegerTest {
 	@Test
 	public void testByteValueExact() {
 		
-		//²âÊÔÓÃÀı1
+		//æµ‹è¯•ç”¨ä¾‹1
 		BigInteger c1 = new BigInteger(48);
 		assertEquals(48 , c1.byteValueExact());
 		
-		//²âÊÔÓÃÀı2
+		//æµ‹è¯•ç”¨ä¾‹2
 		BigInteger c2 = new BigInteger(129);
 		thrown.expect(ArithmeticException.class);
 		c2.byteValueExact();
 		
-		//²âÊÔÓÃÀı3
+		//æµ‹è¯•ç”¨ä¾‹3
 		BigInteger c3 = new BigInteger(-129);
 		thrown.expect(ArithmeticException.class);
 		c3.byteValueExact();
 		
-		//²âÊÔÓÃÀı4
+		//æµ‹è¯•ç”¨ä¾‹4
 		BigInteger c4 = new BigInteger(1234567891);
 		thrown.expect(ArithmeticException.class);
 		c4.byteValueExact();
 		
-		//²âÊÔÓÃÀı5
+		//æµ‹è¯•ç”¨ä¾‹5
 		BigInteger c5 = new BigInteger(12345678912L);
 		thrown.expect(ArithmeticException.class);
 		c5.byteValueExact();

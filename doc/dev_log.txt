@@ -1,0 +1,16 @@
+Project Name: ST_LAB3 软件测试第三次实验
+Project Targets: 完成四个函数的测试代码编写并运行，完成测试报告
+
+@Apr 26nd
+ = 已完成
+ - IDEA测试环境部署
+    - 在./src目录下新建目录ut/math，然后把课程提供的代码往里扔
+ - 在BigInteger.java/private static BigInteger multiply(BigInteger val)中增加了调试用代码
+ = 习得技能
+ - IDEA对于.jar包的导入与使用
+ = 待解决
+ - 无法调用private BigInteger multiplyKaratsuba(BigInteger val)
+    - 目前发现该函数在public BigInteger multiply(BigInteger val)中，当this.mag.length和val.mag.length均大于KARATSUBA_THRESHOLD（80）且小于TOOM_COOK_THRESHOLD（240）时被调用；
+    - 目前仍未发现可触发该条件的输入； 
+    - 似乎长度为9位十进制数的数的length为1，同理，长度为18位的则为2，以此类推
+        - 按这个道理，下一步该思考是使用循环体生成一个足够长的String对象对BigInteger进行初始化或是改用BigInteger的其他初始化接口

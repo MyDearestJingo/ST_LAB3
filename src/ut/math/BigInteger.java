@@ -1477,14 +1477,19 @@ public class BigInteger extends Number implements Comparable<BigInteger> {
             return ZERO;
 
         int xlen = mag.length;
+        System.out.println(xlen);
+
 
         if (val == this && xlen > MULTIPLY_SQUARE_THRESHOLD) {
             return square();
         }
 
         int ylen = val.mag.length;
+        System.out.println(ylen);
 
         if ((xlen < KARATSUBA_THRESHOLD) || (ylen < KARATSUBA_THRESHOLD)) {
+//        if (false) {
+            System.out.println("Enter Normal");
             int resultSign = signum == val.signum ? 1 : -1;
             if (val.mag.length == 1) {
                 return multiplyByInt(mag,val.mag[0], resultSign);
@@ -1498,8 +1503,10 @@ public class BigInteger extends Number implements Comparable<BigInteger> {
             return new BigInteger(result, resultSign);
         } else {
             if ((xlen < TOOM_COOK_THRESHOLD) && (ylen < TOOM_COOK_THRESHOLD)) {
+                System.out.println("Enter KaraMultiple");
                 return multiplyKaratsuba(this, val);
             } else {
+                System.out.println("Enter ToomMultiple");
                 return multiplyToomCook3(this, val);
             }
         }
