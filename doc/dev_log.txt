@@ -14,3 +14,10 @@ Project Targets: 完成四个函数的测试代码编写并运行，完成测试
     - 目前仍未发现可触发该条件的输入； 
     - 似乎长度为9位十进制数的数的length为1，同理，长度为18位的则为2，以此类推
         - 按这个道理，下一步该思考是使用循环体生成一个足够长的String对象对BigInteger进行初始化或是改用BigInteger的其他初始化接口
+
+@Apr 27nd
+ = 发现问题
+ - Java的String对象似乎不可以动态添加元素，也就是在声明后延长
+     - 解决办法：改用public BigInteger(int signum, byte[] magnitude)的初始化方式，由于采用big-endian的排序方式，故而magnitude[0]的为最高位
+     - ↑其实不行，那是个private方法，用不了；目前解决方案是用StringBuffer进行初始化；
+ = Apr 27nd 22:22 已完成所有测试函数编写和测试报告编写

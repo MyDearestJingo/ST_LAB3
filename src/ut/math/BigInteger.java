@@ -1473,28 +1473,30 @@ public class BigInteger extends Number implements Comparable<BigInteger> {
      * @return {@code this * val}
      */
     public BigInteger multiply(BigInteger val) {
+//        System.out.println("Enter mul");
         if (val.signum == 0 || signum == 0)
             return ZERO;
 
         int xlen = mag.length;
-        System.out.println(xlen);
-
+//        System.out.println(xlen);
 
         if (val == this && xlen > MULTIPLY_SQUARE_THRESHOLD) {
             return square();
         }
 
         int ylen = val.mag.length;
-        System.out.println(ylen);
+//        System.out.println(ylen);
 
         if ((xlen < KARATSUBA_THRESHOLD) || (ylen < KARATSUBA_THRESHOLD)) {
 //        if (false) {
-            System.out.println("Enter Normal");
+//            System.out.println("Enter Normal");
             int resultSign = signum == val.signum ? 1 : -1;
             if (val.mag.length == 1) {
+//                System.out.println("Enter MBI_0");
                 return multiplyByInt(mag,val.mag[0], resultSign);
             }
             if (mag.length == 1) {
+//                System.out.println("Enter MBI_1");
                 return multiplyByInt(val.mag,mag[0], resultSign);
             }
             int[] result = multiplyToLen(mag, xlen,
@@ -1503,10 +1505,10 @@ public class BigInteger extends Number implements Comparable<BigInteger> {
             return new BigInteger(result, resultSign);
         } else {
             if ((xlen < TOOM_COOK_THRESHOLD) && (ylen < TOOM_COOK_THRESHOLD)) {
-                System.out.println("Enter KaraMultiple");
+//                System.out.println("Enter KaraMultiple");
                 return multiplyKaratsuba(this, val);
             } else {
-                System.out.println("Enter ToomMultiple");
+//                System.out.println("Enter ToomMultiple");
                 return multiplyToomCook3(this, val);
             }
         }
@@ -1514,6 +1516,7 @@ public class BigInteger extends Number implements Comparable<BigInteger> {
 
     private static BigInteger multiplyByInt(int[] x, int y, int sign) {
         if (Integer.bitCount(y) == 1) {
+//            System.out.println("Enter TC0");
             return new BigInteger(shiftLeft(x,Integer.numberOfTrailingZeros(y)), sign);
         }
         int xlen = x.length;
@@ -1522,13 +1525,17 @@ public class BigInteger extends Number implements Comparable<BigInteger> {
         long yl = y & LONG_MASK;
         int rstart = rmag.length - 1;
         for (int i = xlen - 1; i >= 0; i--) {
+//            System.out.println(i);
             long product = (x[i] & LONG_MASK) * yl + carry;
             rmag[rstart--] = (int)product;
             carry = product >>> 32;
         }
+//        System.out.println(carry);
         if (carry == 0L) {
+//            System.out.println("Enter TC1_TRUE");
             rmag = java.util.Arrays.copyOfRange(rmag, 1, rmag.length);
         } else {
+//            System.out.println("Enter TC1_FALSE");
             rmag[rstart] = (int)carry;
         }
         return new BigInteger(rmag, sign);
@@ -1882,18 +1889,23 @@ public class BigInteger extends Number implements Comparable<BigInteger> {
      * @return {@code this<sup>2</sup>}
      */
     private BigInteger square() {
+//        System.out.println("Enter square");
         if (signum == 0) {
+//            System.out.println("TC0_TRUE");
             return ZERO;
         }
         int len = mag.length;
-
+//        System.out.println(len);
         if (len < KARATSUBA_SQUARE_THRESHOLD) {
+//            System.out.println("TC1_TRUE");
             int[] z = squareToLen(mag, len, null);
             return new BigInteger(trustedStripLeadingZeroInts(z), 1);
         } else {
             if (len < TOOM_COOK_SQUARE_THRESHOLD) {
+//                System.out.println("TC2_TRUE");
                 return squareKaratsuba();
             } else {
+//                System.out.println("TC2_FALSE");
                 return squareToomCook3();
             }
         }
